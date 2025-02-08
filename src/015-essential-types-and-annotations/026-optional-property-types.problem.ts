@@ -1,9 +1,9 @@
-import { Expect, Equal } from "@total-typescript/helpers";
+import { Equal, Expect } from "@total-typescript/helpers";
 import { expect, it } from "vitest";
 
 // CODE
 
-const concatName = (user: { first: string; last: string }) => {
+const concatName = (user: { first: string; last?: string }) => {
   if (!user.last) {
     return user.first;
   }
