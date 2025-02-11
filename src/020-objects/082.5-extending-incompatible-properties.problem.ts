@@ -1,15 +1,21 @@
-type UserPart = {
+type Merge<X, Y> = {
+  [K in keyof X | keyof Y]:
+    | (K extends keyof X ? X[K] : never)
+    | (K extends keyof Y ? Y[K] : never);
+};
+
+interface UserPart {
   id: string;
   name: string;
   age: number;
-};
+}
 
-type UserPart2 = {
+interface UserPart2 {
   id: number;
   phone: string;
-};
+}
 
-type User = UserPart & UserPart2;
+interface User extends Merge<UserPart, UserPart2> {}
 
 const user: User = {
   id: "1",
