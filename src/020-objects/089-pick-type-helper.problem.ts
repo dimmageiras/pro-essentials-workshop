@@ -1,15 +1,19 @@
 import { Equal, Expect } from "@total-typescript/helpers";
 
-interface User {
-  id: string;
+interface UserNameAndEmail {
   name: string;
   email: string;
+}
+
+interface User extends UserNameAndEmail {
+  id: string;
   role: string;
 }
 
-const fetchUser = async (): Promise<User> => {
+const fetchUser = async (): Promise<UserNameAndEmail> => {
   const response = await fetch("/api/user");
-  const user = await response.json();
+  const user: User = await response.json();
+
   return user;
 };
 
