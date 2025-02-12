@@ -2,11 +2,20 @@ import { expect, it } from "vitest";
 
 type ViewMode = "hidden" | "visible" | "selected";
 
+interface ShapeOptions {
+  x?: number;
+  y?: number;
+}
+
+interface CanvasNodeOptions extends ShapeOptions {
+  viewMode?: ViewMode;
+}
+
 class Shape {
   #x;
   #y;
 
-  constructor({ x, y }: { x: number; y: number }) {
+  constructor({ x = 0, y = 0 }: ShapeOptions) {
     this.#x = x;
     this.#y = y;
   }
@@ -28,13 +37,11 @@ class CanvasNode extends Shape {
   #viewMode;
 
   constructor(
-    { x, y, viewMode = "visible" } = {
-      x: 0,
-      y: 0,
-      viewMode: "visible" satisfies ViewMode,
+    { viewMode = "visible", ...position }: CanvasNodeOptions = {
+      viewMode: "visible",
     }
   ) {
-    super({ x, y });
+    super(position);
 
     this.#viewMode = viewMode;
   }
