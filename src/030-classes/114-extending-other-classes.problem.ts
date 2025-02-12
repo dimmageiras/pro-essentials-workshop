@@ -2,15 +2,13 @@ import { expect, it } from "vitest";
 
 type ViewMode = "hidden" | "visible" | "selected";
 
-class CanvasNode {
+class Shape {
   #x: number;
   #y: number;
-  #viewMode: ViewMode;
 
-  constructor(options?: { x: number; y: number; viewMode?: ViewMode }) {
-    this.#x = options?.x ?? 0;
-    this.#y = options?.y ?? 0;
-    this.#viewMode = options?.viewMode ?? "visible";
+  constructor({ x, y }: { x: number; y: number }) {
+    this.#x = x;
+    this.#y = y;
   }
 
   get position() {
@@ -23,6 +21,22 @@ class CanvasNode {
   move(x: number, y: number) {
     this.#x = x;
     this.#y = y;
+  }
+}
+
+class CanvasNode extends Shape {
+  #viewMode: ViewMode;
+
+  constructor(
+    { x, y, viewMode = "visible" } = {
+      x: 0,
+      y: 0,
+      viewMode: "visible" as const,
+    }
+  ) {
+    super({ x, y });
+
+    this.#viewMode = viewMode;
   }
 
   hide() {
@@ -66,11 +80,11 @@ it("Should not be able to access x and y from the outside", () => {
 
   expect(
     // @ts-expect-error
-    canvasNode.x,
+    canvasNode.x
   ).toEqual(undefined);
   expect(
     // @ts-expect-error
-    canvasNode.y,
+    canvasNode.y
   ).toEqual(undefined);
 });
 
