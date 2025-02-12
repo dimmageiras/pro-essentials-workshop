@@ -1,7 +1,7 @@
 type OmitStrict<
   T extends Record<PropertyKey, unknown>,
   K extends keyof T,
-> = Pick<T, Exclude<keyof T, K>>;
+> = T extends T ? Omit<T, K> : never;
 
 type User = {
   id: number;
