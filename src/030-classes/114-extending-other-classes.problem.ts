@@ -3,8 +3,8 @@ import { expect, it } from "vitest";
 type ViewMode = "hidden" | "visible" | "selected";
 
 class Shape {
-  #x: number;
-  #y: number;
+  #x;
+  #y;
 
   constructor({ x, y }: { x: number; y: number }) {
     this.#x = x;
@@ -25,13 +25,13 @@ class Shape {
 }
 
 class CanvasNode extends Shape {
-  #viewMode: ViewMode;
+  #viewMode;
 
   constructor(
     { x, y, viewMode = "visible" } = {
       x: 0,
       y: 0,
-      viewMode: "visible" as const,
+      viewMode: "visible" satisfies ViewMode,
     }
   ) {
     super({ x, y });
