@@ -9,13 +9,13 @@ type IShape = {
 };
 
 // How do we ensure our Shape class matches IShape?
-class Shape {
-  #x: number;
-  #y: number;
+class Shape implements IShape {
+  #x;
+  #y;
 
-  constructor(initial?: ShapeOptions) {
-    this.#x = initial?.x ?? 0;
-    this.#y = initial?.y ?? 0;
+  constructor({ x, y }: ShapeOptions = { x: 0, y: 0 }) {
+    this.#x = x;
+    this.#y = y;
   }
 
   get position() {
