@@ -1,6 +1,6 @@
 import { Equal, Expect } from "@total-typescript/helpers";
 
-const fetchData = async (): Promise<readonly [Error | undefined, unknown?]> => {
+const fetchData = async (): Promise<[Error | undefined, unknown?]> => {
   const result = await fetch("/");
 
   if (!result.ok) {
