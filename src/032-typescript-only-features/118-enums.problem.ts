@@ -8,8 +8,8 @@ enum LogLevel {
 }
 
 function log(opts: {
-  globalLogLevel: (typeof LogLevel)[keyof typeof LogLevel];
-  level: (typeof LogLevel)[keyof typeof LogLevel];
+  globalLogLevel: LogLevel;
+  level: LogLevel;
   message: string;
 }) {
   if (opts.level >= opts.globalLogLevel) {
