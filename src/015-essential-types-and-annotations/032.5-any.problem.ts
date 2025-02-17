@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 
 const handleFormData = (e: SubmitEvent) => {
   e.preventDefault();
-  const data = new FormData(e.target as HTMLFormElement | undefined);
+  const data = new FormData((e.target as HTMLFormElement) || undefined);
   const value = Object.fromEntries(data.entries());
   return value;
 };
