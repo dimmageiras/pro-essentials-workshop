@@ -1,5 +1,12 @@
 import { Equal, Expect } from "@total-typescript/helpers";
 
+type EnvironmentConfiguration = {
+  [environment: string]: {
+    apiBaseUrl: string;
+    timeout: number;
+  };
+};
+
 const configurations = {
   development: {
     apiBaseUrl: "http://localhost:8080",
@@ -15,7 +22,7 @@ const configurations = {
     // @ts-expect-error
     notAllowed: true,
   },
-};
+} satisfies EnvironmentConfiguration;
 
 type Environment = keyof typeof configurations;
 
