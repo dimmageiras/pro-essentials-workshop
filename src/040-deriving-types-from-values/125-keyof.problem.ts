@@ -7,10 +7,10 @@ interface FormValues {
 }
 
 const inputs: Record<
-  "name" | "email" | "password",
+  keyof FormValues,
   {
     initialValue: string;
-    label: string;
+    label: Capitalize<keyof FormValues>;
   }
 > = {
   name: {
@@ -33,15 +33,15 @@ type test = Expect<
     {
       name: {
         initialValue: string;
-        label: string;
+        label: Capitalize<keyof FormValues>;
       };
       email: {
         initialValue: string;
-        label: string;
+        label: Capitalize<keyof FormValues>;
       };
       password: {
         initialValue: string;
-        label: string;
+        label: Capitalize<keyof FormValues>;
       };
     }
   >
