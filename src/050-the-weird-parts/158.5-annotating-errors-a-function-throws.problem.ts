@@ -4,18 +4,35 @@
 
 type PossibleErrors = SyntaxError | DOMException;
 
-const getUserFromLocalStorage = (id: string) => {
-  const user = localStorage.getItem(id);
-  if (!user) {
-    return undefined;
-  }
+const getUserFromLocalStorage = (
+  id: string
+): Partial<{
+  data: Record<PropertyKey, unknown> | undefined;
+  error: PossibleErrors;
+}> => {
+  try {
+    const user = localStorage.getItem(id);
 
-  return JSON.parse(user);
+    if (!user) {
+      return {
+        data: undefined,
+      };
+    }
+
+    return { data: JSON.parse(user) };
+  } catch (error) {
+    if (error instanceof SyntaxError || error instanceof DOMException) {
+      return { error };
+    }
+
+    throw error;
+  }
 };
 
-try {
-  const user = getUserFromLocalStorage("user-1");
-} catch (
-  // How do we make this typed as PossibleErrors?
-  e
-) {}
+const user = getUserFromLocalStorage("user-1");
+
+if (user.error) {
+  user.error;
+} else {
+  user.data;
+}
