@@ -1,11 +1,18 @@
 import { expect, it, vitest } from "vitest";
 
-interface User {
+interface ObjectType {
+  [key: PropertyKey]: unknown;
+}
+interface User extends ObjectType {
   id: number;
   name: string;
 }
 
-function printUser(user: User) {}
+function printUser(user: User) {
+  Object.keys(user).forEach((key) => {
+    console.log(user[key]);
+  });
+}
 
 it("Should log all the keys of the user", () => {
   const consoleSpy = vitest.spyOn(console, "log");
