@@ -1,15 +1,18 @@
 import { expect, it, vitest } from "vitest";
 
-interface ObjectType {
-  [key: PropertyKey]: unknown;
-}
-interface User extends ObjectType {
+type User = {
   id: number;
   name: string;
+};
+
+function getObjectKeys<T extends Record<PropertyKey, unknown>>(
+  initialObject: T
+): (keyof T)[] {
+  return Object.keys(initialObject);
 }
 
 function printUser(user: User) {
-  Object.keys(user).forEach((key) => {
+  getObjectKeys(user).forEach((key) => {
     console.log(user[key]);
   });
 }
